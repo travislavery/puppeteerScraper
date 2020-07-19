@@ -10,9 +10,42 @@
         "type":"Navigation",
         "Description":"Click Best Sellers button in Nav bar",
         "details":{
-            "htmlIdentifier":"#nav-xshop a"
+            "searchUsing":{"type":"xPath",
+                           "value":"#nav-xshop a"}
         }
     },
+    "electronicsLink":{
+        "type":"Navigation",
+        "Description":"Click Electronics link in left menu",
+        "details":{
+            "searchUsing":{"type":"xPath",
+                           "value":"#nav-xshop a"}
+        }
+    },
+    "tvAndVideoLink":{
+        "type":"Navigation",
+        "Description":"Click Televisions and Video link in left menu",
+        "details":{
+            "searchUsing":{"type":"xPath",
+                           "value":"#nav-xshop a"}
+        }
+    },
+    "televisionsLink":{
+        "type":"Navigation",
+        "Description":"Click Televisions link in left menu",
+        "details":{
+            "searchUsing":{"type":"xPath",
+                           "value":"#nav-xshop a"}
+        }
+    },
+    "scrapeTvPage":{
+        "type":"Scrape",
+        "Description":"Scrape tv names and prices",
+        "details":{
+            "htmlIdentifier":""
+        }
+    },
+    
     "disconnect":{
         "type":"Disconnect",
         "Description":"Disconnect browser and close open pages",

@@ -16,6 +16,38 @@
         }
     },
     "3":{
+        "description":"Click Electronics link in left menu",
+        "associated_step":{
+            "source_type":"json",
+            "file_location":"amazonScrape.json",
+            "id":"electronicsLink"
+        }
+    },
+    "4":{
+        "description":"Click Televisions and Video link in left menu",
+        "associated_step":{
+            "source_type":"json",
+            "file_location":"amazonScrape.json",
+            "id":"tvAndVideoLink"
+        }
+    },
+    "5":{
+        "description":"Click Televisions link in left menu",
+        "associated_step":{
+            "source_type":"json",
+            "file_location":"amazonScrape.json",
+            "id":"televisionsLink"
+        }
+    },
+    "6":{
+        "description":"Scrape tv names and prices",
+        "associated_step":{
+            "source_type":"json",
+            "file_location":"amazonScrape.json",
+            "id":"scrapeTvPage"
+        }
+    },
+    "7":{
         "description":"Disconnect",
         "associated_step":{
             "source_type":"json",
