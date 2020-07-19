@@ -14,5 +14,13 @@
             "file_location":"amazonScrape.json",
             "id":"bestSellersButton"
         }
+    },
+    "3":{
+        "description":"Disconnect",
+        "associated_step":{
+            "source_type":"json",
+            "file_location":"amazonScrape.json",
+            "id":"disconnect"
+        }
     }
 }

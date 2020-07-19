@@ -12,5 +12,11 @@
         "details":{
             "htmlIdentifier":"#nav-xshop a"
         }
+    },
+    "disconnect":{
+        "type":"Disconnect",
+        "Description":"Disconnect browser and close open pages",
+        "details":{
+        }
     }
 }
