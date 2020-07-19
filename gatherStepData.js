@@ -35,7 +35,7 @@ class ConnectStep extends Step {
     async connect(){
         try{
             console.log("Now connecting to "+ this.stepDetail.details.url);
-            return await Promise.resolve(this.page.goto(this.stepDetail.details.url));
+            return await this.page.goto(this.stepDetail.details.url);
         }
         catch(err){
             console.log(err)
@@ -50,7 +50,7 @@ class DisconnectStep extends Step {
     async disconnect(){
         try{
             console.log("Now disconnecting")
-            return await Promise.resolve(this.browser.close())
+            return await this.browser.close()
         }
         catch(err){
             console.log(err)
@@ -60,12 +60,16 @@ class DisconnectStep extends Step {
 
 class NavigationStep extends Step {
     async run(){
-        console.log("Navigation step")
-        return {}
+        console.log(`Navigation step - ${this.stepDetail.description}`)
+        return await this.clickElement()
     }
-    // toClick(){
-
-    // }
+    async clickElement(){
+        console.log(`Clicking Element ${this.stepDetail.details.htmlIdentifier}`)
+        return Promise.all([
+            this.page.waitForNavigation('domcontentloaded'),
+            this.page.click(this.stepDetail.details.htmlIdentifier)
+        ])
+    }
 }
 
 function associateSteps(){

@@ -30,14 +30,14 @@ const main = (async () => {
             return someSteps
         }
 
-        function runSteps(stepArray){
-            stepArray.forEach(step => {
-                runStep(step)
-            })
-        }
-
-        async function runStep(step){
-            return await Promise.resolve(step.run())
+        async function runSteps(stepArray){
+            for (const i in stepArray) {
+                const element = await stepArray[i].run();
+                console.log(element)
+            }
+            // stepArray.forEach(step => {
+            //     runStep(step)
+            // })
         }
         
         
