@@ -1,0 +1,16 @@
+{
+    "amazonConnect":{
+        "type":"Connect",
+        "Description":"Connect to https://amazon.com",
+        "details":{
+            "url":"https://amazon.com"
+        }
+    },
+    "bestSellersButton":{
+        "type":"Navigation",
+        "Description":"Click Best Sellers button in Nav bar",
+        "details":{
+            "htmlIdentifier":"#nav-xshop a"
+        }
+    }
+}

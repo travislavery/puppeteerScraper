@@ -1,0 +1,18 @@
+{
+    "1":{
+        "description":"Connect to https://amazon.com",
+        "associated_step":{
+            "source_type": "json",
+            "file_location": "amazonScrape.json",
+            "id":"amazonConnect"
+        }
+    },
+    "2":{
+        "description":"Click Best Sellers button in nav bar",
+        "associated_step":{
+            "source_type":"json",
+            "file_location":"amazonScrape.json",
+            "id":"bestSellersButton"
+        }
+    }
+}
