@@ -30,7 +30,9 @@ class Step {
 
 class ConnectStep extends Step {
     async run(){
-        return await this.connect()
+        const results = Object.assign({},this);
+        results.results = await this.connect();
+        return results;
     }
     async connect(){
         try{
@@ -45,7 +47,9 @@ class ConnectStep extends Step {
 
 class DisconnectStep extends Step {
     async run(){
-        return await this.disconnect()
+        const results = Object.assign({},this);
+        results.results = await this.disconnect();
+        return results;
     }
     async disconnect(){
         try{
@@ -60,6 +64,12 @@ class DisconnectStep extends Step {
 
 class NavigationStep extends Step {
     async run(){
+        const results = Object.assign({},this);
+        results.results = await this.navigate();
+        return results;
+    }
+
+    async navigate(){
         switch (this.stepDetail.details.searchUsing.type) {
             case "xPath": return await this.clickXpath();
             case "htmlIdentifier": return await this.clickHtmlElement();
@@ -67,6 +77,7 @@ class NavigationStep extends Step {
                 throw new Error(`Unknown search type: ${this.stepDetail.details.searchUsing.type}`)
         }
     }
+
     async clickElement(){
         console.log(`Clicking Element ${this.stepDetail.details.searchUsing.htmlIdentifier}`)
         return Promise.all([
@@ -90,6 +101,12 @@ class NavigationStep extends Step {
 
 class ScrapeStep extends Step {
     async run(){
+        const results = Object.assign({},this);
+        results.results = await this.scrapeStuff();
+        return results;
+    }
+
+    async scrapeStuff(){
         const scrapes = this.stepDetail.details.scrapeDetails.map(scrape => this.scrapeItems(scrape))
         const scrapeLoop = async() => {
             for await (const aScrape of scrapes){
@@ -127,39 +144,14 @@ class ScrapeStep extends Step {
             })
         , (scrape))
         
-        for (const item of scrapedItems){
-            // for (const data of item){
-            //     result[item]
-            // }
-            
+        for (const item of scrapedItems){          
             try {
                 console.log(item)
-            // const rank = item[0].itemRank
-            // const name = item[1].itemName
-            // const price = item[2].itemCost
-            // if (rank.innerText){
-            //     console.log(`Rank: ${rank.innerText}`)
-            // }
-            // if (name.innerText){
-            //     console.log(`Name: ${name.innerText}`)
-            // }
-            // if (price.innerText){
-            //     console.log(`Price: ${price.innerText}`)
-            // } else {
-            //     console.log(`Price: ${price.error}`)
-            // }
-            
-            // console.log(`Rank: ${item.itemRank.innerText ? item.itemRank.innerText : item.itemRank.error}`)
-            // console.log(`Name: ${item.itemName.innerText ? item.itemName.innerText : item.itemName.error}`)
-            // console.log(`Price: ${item.itemCost.innerText ? item.itemCost.innerText : item.itemCost.error}`)
             } catch (error) {
                 console.log(error)
                 console.log(item)
             }
         }
-        
-        
-        
         return scrapedItems
     }
 
