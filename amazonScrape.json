@@ -40,11 +40,11 @@
     },
     "scrapeTvPage":{
         "type":"Scrape",
-        "Description":"Scrape tv names and prices",
+        "Description":"Scrape data from the best sellers - Television Amazon page",
         "details":{
             "scrapeDetails":[
                 {
-                    "description": "",
+                    "description": "Scrape tv ranks, names, and prices",
                     "selector":".zg-item-immersion",
                     "childrenSelectors":[
                         {"name":"itemRank","selector":".zg-badge-text","attributes":["innerText","nodeName"]},
