@@ -42,7 +42,17 @@
         "type":"Scrape",
         "Description":"Scrape tv names and prices",
         "details":{
-            "htmlIdentifier":""
+            "scrapeDetails":[
+                {
+                    "description": "",
+                    "selector":".zg-item-immersion",
+                    "childrenSelectors":[
+                        {"name":"itemRank","selector":".zg-badge-text","attributes":["innerText","nodeName"]},
+                        {"name":"itemName","selector":".p13n-sc-truncated","attributes":["innerText"]},
+                        {"name":"itemCost","selector":".a-color-price","attributes":["innerText"]}
+                    ]
+                }
+            ]
         }
     },
     

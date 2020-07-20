@@ -90,9 +90,80 @@ class NavigationStep extends Step {
 
 class ScrapeStep extends Step {
     async run(){
-        console.log("Scrape step")
-        return await Promise.resolve(0);
+        const scrapes = this.stepDetail.details.scrapeDetails.map(scrape => this.scrapeItems(scrape))
+        const scrapeLoop = async() => {
+            for await (const aScrape of scrapes){
+                return aScrape
+            }
+        }
+        return await scrapeLoop()
     }
+
+    async scrapeItems(scrape){
+        const result = Object.assign({},scrape)
+        const scrapedItems = await this.page.evaluate((scrape)=>
+            Array.from(document.querySelectorAll(scrape.selector))
+            .map(item => {
+
+                function byQuerySelector(node,childQuery){
+                    const result = {}
+                    const childNode = node.querySelector(childQuery.selector)
+                    const attributes = {}
+                    if (childNode){
+                        childQuery.attributes.map(attribute => {
+                            attributes[attribute]= childNode[attribute] ? childNode[attribute] : "No such attribute"
+                        })
+                        result[childQuery.name] = attributes
+                        return result
+                    } else {
+                        result[childQuery.name] = {"error":`No element found with selector ${childQuery.selector}`}
+                        return result
+                    }
+                    
+                }
+
+                return scrape.childrenSelectors.map(child => byQuerySelector(item,child))
+
+            })
+        , (scrape))
+        
+        for (const item of scrapedItems){
+            // for (const data of item){
+            //     result[item]
+            // }
+            
+            try {
+                console.log(item)
+            // const rank = item[0].itemRank
+            // const name = item[1].itemName
+            // const price = item[2].itemCost
+            // if (rank.innerText){
+            //     console.log(`Rank: ${rank.innerText}`)
+            // }
+            // if (name.innerText){
+            //     console.log(`Name: ${name.innerText}`)
+            // }
+            // if (price.innerText){
+            //     console.log(`Price: ${price.innerText}`)
+            // } else {
+            //     console.log(`Price: ${price.error}`)
+            // }
+            
+            // console.log(`Rank: ${item.itemRank.innerText ? item.itemRank.innerText : item.itemRank.error}`)
+            // console.log(`Name: ${item.itemName.innerText ? item.itemName.innerText : item.itemName.error}`)
+            // console.log(`Price: ${item.itemCost.innerText ? item.itemCost.innerText : item.itemCost.error}`)
+            } catch (error) {
+                console.log(error)
+                console.log(item)
+            }
+        }
+        
+        
+        
+        return scrapedItems
+    }
+
+    
 }
 
 function associateSteps(){
