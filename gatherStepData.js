@@ -60,15 +60,38 @@ class DisconnectStep extends Step {
 
 class NavigationStep extends Step {
     async run(){
-        console.log(`Navigation step - ${this.stepDetail.description}`)
-        return await this.clickElement()
+        switch (this.stepDetail.details.searchUsing.type) {
+            case "xPath": return await this.clickXpath();
+            case "htmlIdentifier": return await this.clickHtmlElement();
+            default:
+                throw new Error(`Unknown search type: ${this.stepDetail.details.searchUsing.type}`)
+        }
     }
     async clickElement(){
-        console.log(`Clicking Element ${this.stepDetail.details.htmlIdentifier}`)
+        console.log(`Clicking Element ${this.stepDetail.details.searchUsing.htmlIdentifier}`)
         return Promise.all([
             this.page.waitForNavigation('domcontentloaded'),
-            this.page.click(this.stepDetail.details.htmlIdentifier)
+            this.page.click(this.stepDetail.details.searchUsing.htmlIdentifier)
         ])
+    }
+    async clickXpath(){
+        console.log(`Clicking Element ${this.stepDetail.details.searchUsing.value}`)
+        const [link] = await this.page.$x(this.stepDetail.details.searchUsing.value)
+        if (link){
+            return Promise.all([
+                this.page.waitForNavigation('domcontentloaded'),
+                link.click()
+            ])
+        } else {
+            throw new Error(`Unable to find element with given xPath - ${this.stepDetail.details.searchUsing.value} on the page ${this.page.url()}`)
+        }
+    }
+}
+
+class ScrapeStep extends Step {
+    async run(){
+        console.log("Scrape step")
+        return await Promise.resolve(0);
     }
 }
 
@@ -85,6 +108,7 @@ function createStepObject(aStep,aStepDetail){
         case "Connect": return new ConnectStep(aStep,aStepDetail);
         case "Disconnect": return new DisconnectStep(aStep,aStepDetail);
         case "Navigation": return new NavigationStep(aStep,aStepDetail);
+        case "Scrape": return new ScrapeStep(aStep,aStepDetail);
         default:
             throw new Error(`Unknown type: ${aStepDetail.type}`)
     }

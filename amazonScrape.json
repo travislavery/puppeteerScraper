@@ -11,7 +11,7 @@
         "Description":"Click Best Sellers button in Nav bar",
         "details":{
             "searchUsing":{"type":"xPath",
-                           "value":"#nav-xshop a"}
+                           "value":"//*[@id='nav-xshop']/a[1]"}
         }
     },
     "electronicsLink":{
@@ -19,7 +19,7 @@
         "Description":"Click Electronics link in left menu",
         "details":{
             "searchUsing":{"type":"xPath",
-                           "value":"#nav-xshop a"}
+                           "value":"//*[@id='zg_browseRoot']/ul/li[19]/a"}
         }
     },
     "tvAndVideoLink":{
@@ -27,7 +27,7 @@
         "Description":"Click Televisions and Video link in left menu",
         "details":{
             "searchUsing":{"type":"xPath",
-                           "value":"#nav-xshop a"}
+                           "value":"//*[@id='zg_browseRoot']/ul/ul/li[5]/a"}
         }
     },
     "televisionsLink":{
@@ -35,7 +35,7 @@
         "Description":"Click Televisions link in left menu",
         "details":{
             "searchUsing":{"type":"xPath",
-                           "value":"#nav-xshop a"}
+                           "value":"//*[@id='zg_browseRoot']/ul/ul/ul/li[13]/a"}
         }
     },
     "scrapeTvPage":{
