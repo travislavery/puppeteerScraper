@@ -35,6 +35,7 @@ class ConnectStep extends Step {
         return results;
     }
     async connect(){
+        console.log(this.step.description)
         try{
             console.log("Now connecting to "+ this.stepDetail.details.url);
             return await this.page.goto(this.stepDetail.details.url);
@@ -52,6 +53,7 @@ class DisconnectStep extends Step {
         return results;
     }
     async disconnect(){
+        console.log(this.step.description)
         try{
             console.log("Now disconnecting")
             return await this.browser.close()
@@ -70,12 +72,19 @@ class NavigationStep extends Step {
     }
 
     async navigate(){
-        switch (this.stepDetail.details.searchUsing.type) {
-            case "xPath": return await this.clickXpath();
-            case "htmlIdentifier": return await this.clickHtmlElement();
-            default:
-                throw new Error(`Unknown search type: ${this.stepDetail.details.searchUsing.type}`)
+        console.log(this.step.description)
+        try {
+            switch (this.stepDetail.details.searchUsing.type) {
+                case "xPath": return await this.clickXpath();
+                case "htmlIdentifier": return await this.clickHtmlElement();
+                default:
+                    throw new Error(`Unknown search type: ${this.stepDetail.details.searchUsing.type}`)
+            }
+        } catch (error) {
+            console.log("Failed to navigate")
+            console.log(error)
         }
+        
     }
 
     async clickElement(){
@@ -107,13 +116,20 @@ class ScrapeStep extends Step {
     }
 
     async scrapeStuff(){
-        const scrapes = this.stepDetail.details.scrapeDetails.map(scrape => this.scrapeItems(scrape))
-        const scrapeLoop = async() => {
-            for await (const aScrape of scrapes){
-                return aScrape
+        console.log(this.step.description)
+        try{
+            const scrapes = this.stepDetail.details.scrapeDetails.map(scrape => this.scrapeItems(scrape))
+            const scrapeLoop = async() => {
+                for await (const aScrape of scrapes){
+                    return aScrape
+                }
             }
+            return await scrapeLoop()
+        } catch (error) {
+            console.log("Failed to scrape")
+            console.log(error)
         }
-        return await scrapeLoop()
+        
     }
 
     async scrapeItems(scrape){
@@ -154,6 +170,7 @@ class ScrapeStep extends Step {
         }
         return scrapedItems
     }
+
 
     
 }
