@@ -1,6 +1,5 @@
 const puppeteer = require('puppeteer');
 const stepData = require("./gatherStepData");
-//const firstStepDetails=parsedStepDetails[`firstStepId`]
 
 const main = (async () => {
     try{
@@ -32,12 +31,3 @@ const main = (async () => {
 });
 
 main()
-
-
-// function createStepObject(stepDetails){
-
-// }
-
-// class Step {
-    
-// }
